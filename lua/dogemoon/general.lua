@@ -1,5 +1,5 @@
 local spacemap = require('dogemoon.utils').spacemap
-
+local map = require('dogemoon.utils').map
 
 local function adapt_termguicolors()
 	if (vim.fn.exists('+termguicolors')) then
@@ -9,17 +9,18 @@ local function adapt_termguicolors()
 	end
 end
 
-local function set_options(colorscheme)
-	local indent_size = 4
-	vim.cmd('colorscheme ' .. colorscheme)
+local function set_options()
 	vim.o.completeopt = 'menuone,noselect'
 	vim.o.foldlevelstart = 90
 	vim.o.hidden = true
 	vim.o.background = 'dark'
 	vim.o.shortmess = vim.o.shortmess .. "c"
+	vim.o.showtabline = 2
 	vim.wo.number = true
 	vim.wo.relativenumber = true
 	vim.wo.signcolumn = 'yes'
+
+	local indent_size = 4
 	vim.bo.shiftwidth = indent_size
 	vim.bo.smartindent = true
 	vim.bo.tabstop = indent_size
@@ -27,13 +28,14 @@ local function set_options(colorscheme)
 
 	vim.g.netrw_banner = 0
 	vim.g.netrw_liststyle = 3
+	vim.cmd('set list lcs=tab:\\¦\\ ')
 end
 
 local function register_buffer_maps()
-	spacemap('bb', '<cmd>Buffers<CR>')
-	spacemap('bw', '<cmd>bd<CR>')
-	spacemap('bn', '<cmd>bn<CR>')
-	spacemap('bp', '<cmd>bp<CR>')
+	spacemap('b', '<cmd>Buffers<CR>')
+	spacemap('w', '<cmd>bd<CR>')
+	spacemap('h', '<cmd>bp<CR>')
+	spacemap('l', '<cmd>bn<CR>')
 end
 
 local function register_file_maps()
@@ -44,8 +46,9 @@ local function register_file_maps()
 end
 
 local function register_git_maps()
-	spacemap('gs', '<cmd>Gstatus<CR>')
+	spacemap('gs', '<cmd>Git<CR>')
 	spacemap('gc', '<cmd>Git commit<CR>')
+	spacemap('gb', '<cmd>Git blame<CR>')
 	spacemap('gf', '<cmd>GFiles?<CR>')
 end
 
@@ -53,26 +56,38 @@ local function register_number_maps()
 	spacemap('nt', '<cmd>set norelativenumber!<CR>')
 end
 
+local function register_util_maps()
+	map('<C-c>', '<ESC>', 'i')
+	map('<leader>y', '"+y', '')
+	map('<leader>p', '"+p', '')
+end
+
 local function register_tab_maps()
 	spacemap('tt', '<cmd>tabnew<CR>')
-	spacemap('tn', '<cmd>tabn<CR>')
-	spacemap('tp', '<cmd>tabp<CR>')
+	spacemap('tl', '<cmd>tabn<CR>')
+	spacemap('th', '<cmd>tabp<CR>')
 	spacemap('tw', '<cmd>tabclose<CR>')
+end
+
+local function register_line_maps()
+	spacemap('ll', '<cmd>set rnu!<CR>')
 end
 
 local general = {}
 
 function general.setup()
 	adapt_termguicolors()
-	set_options('badwolf')
+	set_options()
 end
 
 function general.register_maps()
+	register_util_maps()
 	register_buffer_maps()
 	register_file_maps()
 	register_git_maps()
 	register_number_maps()
 	register_tab_maps()
+	register_line_maps()
 end
 
 return general
