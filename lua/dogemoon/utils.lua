@@ -11,4 +11,8 @@ function utils.spacemap(lhs, rhs, mode, opts)
   utils.map('<space>' .. lhs, rhs, mode, opts)
 end
 
+function utils.leadermap(lhs, rhs, mode, opts)
+  utils.map('<leader>' .. lhs, rhs, mode, opts)
+end
+
 return utils

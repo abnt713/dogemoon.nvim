@@ -21,6 +21,7 @@ function vimmod.configure(mapper)
     vim.wo.number = true
     vim.wo.relativenumber = true
     vim.wo.signcolumn = 'yes'
+    vim.wo.colorcolumn = '80'
 
     local indent_size = 4
     vim.bo.shiftwidth = indent_size
