@@ -10,7 +10,7 @@ end
 function lightlinemod.configure()
   return function()
     vim.g.lightline = {
-      colorscheme = 'seoul256',
+      colorscheme = 'wombat',
       active = {
         left = {{'mode', 'paste'}, {'readonly', 'filename', 'modified'}}
       },

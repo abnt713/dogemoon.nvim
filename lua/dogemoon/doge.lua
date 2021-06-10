@@ -7,28 +7,32 @@ function doge.run()
   local mapper = require 'dogemoon.utils'
   local plugins = Lifecycle.new(paq, mapper)
 
+  local projfile = vim.fn.getcwd() .. '/dogeproj.json'
+  local projcfg = doge.read_project_file(projfile)
+
   plugins:load({
     'vim',
-    
+    'paq-nvim',
     'treesitter',
-
+    'polyglot',
+    -- 'dap',
+    'telescope',
     'ale',
     'colorizer',
     'commentary',
     'compe',
     'editorconfig',
-    'fzf',
     'git',
     'indent',
     'lightline',
     'lsp',
     'nerdtree',
-    'nvim-base16',
-    'paq-nvim',
     'tmux',
+    'go',
+    'theme.edge'
   })
 
-  plugins:execute() 
+  plugins:execute(projcfg) 
 end
 
 Lifecycle.__index = Lifecycle
@@ -64,14 +68,23 @@ function Lifecycle:attach(module_name)
   end
 end
 
-function Lifecycle:execute()
+function Lifecycle:execute(projcfg)
   for i, modplugins in ipairs(self.plugins) do
     modplugins()
   end
 
   for i, modsettings in ipairs(self.settings) do
-    modsettings()
+    modsettings(projcfg)
   end
+end
+
+function doge.read_project_file(configfile) 
+  if vim.fn.filereadable(configfile) == 0 then
+    return nil
+  end
+
+  local contents = vim.fn.readfile(configfile)
+  return vim.fn.json_decode(contents)
 end
 
 return doge

@@ -10,20 +10,23 @@ function lspmod.load(plug)
 end
 
 function lspmod.configure(mapper)
-  return function()
-    lspmod.setup()
+  return function(projcfg)
+    lspmod.setup(projcfg)
     lspmod.maps(mapper)
   end
 end
 
-function lspmod.setup()
+function lspmod.setup(projcfg)
   local lspcfg = require 'lspconfig'
   local lspfuzzy = require 'lspfuzzy'
 
-  local project_cfg = lspmod.read_local_configs()
+  if projcfg == nil then
+    projcfg = lspmod.default_configs()
+  end
 
-  lspcfg.gopls.setup(project_cfg.gopls)
+  lspcfg.gopls.setup(projcfg.gopls)
   lspcfg.intelephense.setup({})
+  lspcfg.pyls.setup({})
   lspfuzzy.setup{}
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function()
@@ -40,15 +43,6 @@ function lspmod.default_configs()
   }
 end
 
-function lspmod.read_local_configs() 
-  local configfile = vim.fn.getcwd() .. '/nvim.local.json'
-  if vim.fn.filereadable(configfile) == 0 then
-    return lspmod.default_configs()
-  end
-
-  local contents = vim.fn.readfile(configfile)
-  return vim.fn.json_decode(contents)
-end
 
 function lspmod.maps(mapper)
   mapper.map('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')

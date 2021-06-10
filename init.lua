@@ -10,4 +10,10 @@ function debug_highlight_group()
   print(string.format("[%s, %s] hi<%s> trans<%s> lo<%s>", line, col, hi, trans, lo))
 end
 
+function file_def()
+  local file_reference = vim.fn.expand('%') .. ':' .. vim.fn.line('.')
+  vim.fn.setreg('+', file_reference)
+  print('"' .. file_reference .. '" copied to clipboard')
+end
+
 main.run()

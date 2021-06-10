@@ -8,8 +8,8 @@ function treesittermod.load(plug)
         vim.cmd 'TSUpdate'
       end
     }
-
     plug {'nvim-treesitter/playground'}
+    plug {'nvim-treesitter/nvim-treesitter-refactor'}
   end
 end
 
@@ -18,7 +18,10 @@ function treesittermod.configure(mapper)
     require 'nvim-treesitter.configs'.setup({
       highlight = { enable = true },
       indent = {
-        enable = true
+        enable = false
+      },
+      refactor = {
+        highlight_definitions = { enable = false }
       },
       playground = {
         enable = true,
