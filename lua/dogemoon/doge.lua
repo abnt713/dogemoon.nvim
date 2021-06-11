@@ -1,18 +1,36 @@
 local doge = {}
 
-function doge.load_plugins(plugins, projfile)
-  local paq = require('paq-nvim').paq
+function doge.load_plugins(modlist, projfile)
+  local plugins = {
+    list = {},
+    loaded = {}
+  }
+  local plug = function(plugin_specification)
+    if plugin_specification[1] == nil then 
+      return
+    end
+    local plugin_id = plugin_specification[1]
+
+    if plugins.loaded[plugin_id] then
+      return
+    end
+    table.insert(plugins.list, plugin_specification)
+    plugins.loaded[plugin_id] = true
+  end
+
   local mapper = require 'dogemoon.utils'
   local projcfg = doge.read_project_file(projfile)
 
-  for i, module_name in ipairs(plugins) do
+  for i, module_name in ipairs(modlist) do
     local mod = require('dogemoon.modules.' .. module_name)
     if mod.load ~= nil then
-      mod.load(paq)
+      mod.load(plug)
     end
   end
 
-  for i, module_name in ipairs(plugins) do
+  require('paq-nvim')(plugins.list)
+
+  for i, module_name in ipairs(modlist) do
     local mod = require('dogemoon.modules.' .. module_name)
     if mod.configure ~= nil then
       local cfg = projcfg
