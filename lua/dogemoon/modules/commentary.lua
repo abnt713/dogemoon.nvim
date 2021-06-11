@@ -1,12 +1,7 @@
 local commentary = {}
 
 function commentary.load(plug)
-  return function()
-    plug {'tpope/vim-commentary'}
-  end
+  plug {'tpope/vim-commentary'}
 end
 
-function commentary.configure(mapper)
-  return nil
-end
 return commentary

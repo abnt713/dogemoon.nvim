@@ -1,13 +1,7 @@
 local ale = {}
 
 function ale.load(plug)
-  return function()
-    plug {'dense-analysis/ale'}
-  end
-end
-
-function ale.configure(mapper)
-  return nil
+  plug {'dense-analysis/ale'}
 end
 
 return ale

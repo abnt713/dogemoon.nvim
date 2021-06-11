@@ -1,32 +1,28 @@
 local dapmod = {}
 
 function dapmod.load(plug)
-  return function()
-    plug {'mfussenegger/nvim-dap'}
-  end
+  plug {'mfussenegger/nvim-dap'}
 end
 
 function dapmod.configure(mapper)
-  return function()
-    local dap = require 'dap'
-    dap.adapters.go = {
-      type = 'executable';
-      command = 'node';
-      args = {os.getenv('HOME') .. '/.config/nvim/tools/vscode-go/dist/debugAdapter.js'};
-    }
-    dap.configurations.go = {
-      {
-        type = 'go';
-        name = 'Debug';
-        request = 'launch';
-        showLog = false;
-        program = "${file}";
-        dlvToolPath = vim.fn.exepath('dlv')  -- Adjust to where delve is installed
-      },
-    }
+  local dap = require 'dap'
+  dap.adapters.go = {
+    type = 'executable';
+    command = 'node';
+    args = {os.getenv('HOME') .. '/.config/nvim/tools/vscode-go/dist/debugAdapter.js'};
+  }
+  dap.configurations.go = {
+    {
+      type = 'go';
+      name = 'Debug';
+      request = 'launch';
+      showLog = false;
+      program = "${file}";
+      dlvToolPath = vim.fn.exepath('dlv')  -- Adjust to where delve is installed
+    },
+  }
 
-    dapmod.maps(mapper)
-  end
+  dapmod.maps(mapper)
 end
 
 function dapmod.maps(mapper)

@@ -1,13 +1,7 @@
 local tmux = {}
 
 function tmux.load(plug)
-  return function()
-    plug {'christoomey/vim-tmux-navigator'}
-  end
-end
-
-function tmux.configure(mapper)
-  return nil
+  plug {'christoomey/vim-tmux-navigator'}
 end
 
 return tmux

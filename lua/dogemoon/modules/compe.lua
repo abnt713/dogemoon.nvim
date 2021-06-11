@@ -1,16 +1,12 @@
 local compe = {}
 
 function compe.load(plug)
-  return function()
-    plug {'hrsh7th/nvim-compe'}
-  end
+  plug {'hrsh7th/nvim-compe'}
 end
 
 function compe.configure(mapper)
-  return function()
-    compe.settings()
-    compe.maps(mapper)
-  end
+  compe.settings()
+  compe.maps(mapper)
 end
 
 function compe.settings()
@@ -28,7 +24,6 @@ function compe.settings()
     max_kind_width = 100;
     max_menu_width = 100;
     documentation = true;
-
     source = {
       path = true;
       buffer = true;

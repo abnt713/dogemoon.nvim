@@ -13,13 +13,7 @@ function polyglotmod.load(plug)
     'yml',
     'sensible',
   }
-  return function()
-    plug {'sheerun/vim-polyglot'}
-  end
-end
-
-function polyglotmod.configure(mapper)
-  return nil
+  plug {'sheerun/vim-polyglot'}
 end
 
 return polyglotmod

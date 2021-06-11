@@ -1,39 +1,33 @@
 local vimmod = {}
 
-function vimmod.load(plug)
-  return nil
-end
-
 function vimmod.configure(mapper)
-  return function()
-    if (vim.fn.exists('+termguicolors')) then
-      vim.o['termguicolors'] = true
-    end
-
-    vim.o.completeopt = 'menuone,noselect'
-    vim.o.foldlevelstart = 90
-    vim.o.hidden = true
-    vim.o.background = 'dark'
-    vim.o.shortmess = vim.o.shortmess .. "c"
-    vim.o.showtabline = 2
-    vim.o.updatetime = 1000
-    vim.wo.number = true
-    vim.wo.relativenumber = true
-    vim.wo.signcolumn = 'yes'
-    vim.wo.colorcolumn = '80'
-
-    local indent_size = 4
-    vim.bo.shiftwidth = indent_size
-    vim.bo.smartindent = true
-    vim.bo.tabstop = indent_size
-    vim.bo.softtabstop = indent_size
-
-    vim.g.netrw_banner = 0
-    vim.g.netrw_liststyle = 3
-
-    vim.cmd('set list lcs=tab:\\¦\\ ')
-    vimmod.maps(mapper)
+  if (vim.fn.exists('+termguicolors')) then
+    vim.o['termguicolors'] = true
   end
+
+  vim.o.completeopt = 'menuone,noselect'
+  vim.o.foldlevelstart = 90
+  vim.o.hidden = true
+  vim.o.background = 'dark'
+  vim.o.shortmess = vim.o.shortmess .. "c"
+  vim.o.showtabline = 2
+  vim.o.updatetime = 1000
+  vim.wo.number = true
+  vim.wo.relativenumber = true
+  vim.wo.signcolumn = 'yes'
+  vim.wo.colorcolumn = '80'
+
+  local indent_size = 4
+  vim.bo.shiftwidth = indent_size
+  vim.bo.smartindent = true
+  vim.bo.tabstop = indent_size
+  vim.bo.softtabstop = indent_size
+
+  vim.g.netrw_banner = 0
+  vim.g.netrw_liststyle = 3
+
+  vim.cmd('set list lcs=tab:\\¦\\ ')
+  vimmod.maps(mapper)
 end
 
 function vimmod.maps(mapper)

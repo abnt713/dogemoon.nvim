@@ -1,5 +1,3 @@
-local main = require('dogemoon.doge')
-
 function debug_highlight_group()
   local line = vim.fn.line(".")
   local col = vim.fn.col(".")
@@ -16,4 +14,4 @@ function file_def()
   print('"' .. file_reference .. '" copied to clipboard')
 end
 
-main.run()
+require('dogemoon.doge')()

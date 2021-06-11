@@ -1,16 +1,12 @@
 local nerdtreemod = {}
 
 function nerdtreemod.load(plug)
-  return function()
-    plug {'preservim/nerdtree'}
-    plug {'ryanoasis/vim-devicons'}
-  end
+  plug {'preservim/nerdtree'}
+  plug {'ryanoasis/vim-devicons'}
 end
 
 function nerdtreemod.configure(mapper)
-  return function()
-    mapper.spacemap('ft', '<cmd>NERDTreeToggle<CR>')
-  end
+  mapper.spacemap('ft', '<cmd>NERDTreeToggle<CR>')
 end
 
 return nerdtreemod

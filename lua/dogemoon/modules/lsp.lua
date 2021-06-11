@@ -1,33 +1,25 @@
 local lspmod = {}
 
 function lspmod.load(plug)
-  return function()
-    plug {'neovim/nvim-lspconfig'}
-    plug {'nvim-lua/completion-nvim'}
-    plug {'nvim-lua/lsp_extensions.nvim'}
-    plug {'ojroques/nvim-lspfuzzy'}
-  end
+  plug {'neovim/nvim-lspconfig'}
+  plug {'nvim-lua/completion-nvim'}
+  plug {'nvim-lua/lsp_extensions.nvim'}
+  plug {'ojroques/nvim-lspfuzzy'}
 end
 
-function lspmod.configure(mapper)
-  return function(projcfg)
-    lspmod.setup(projcfg)
-    lspmod.maps(mapper)
-  end
+function lspmod.configure(mapper, projcfg)
+  lspmod.setup(projcfg)
+  lspmod.maps(mapper)
 end
 
 function lspmod.setup(projcfg)
   local lspcfg = require 'lspconfig'
   local lspfuzzy = require 'lspfuzzy'
 
-  if projcfg == nil then
-    projcfg = lspmod.default_configs()
-  end
-
   lspcfg.gopls.setup(projcfg.gopls)
-  lspcfg.intelephense.setup({})
-  lspcfg.pyls.setup({})
-  lspfuzzy.setup{}
+  lspcfg.intelephense.setup(projcfg.intelephense)
+  lspcfg.pyls.setup(projcfg.pyls)
+  lspfuzzy.setup({})
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function()
   end
@@ -37,12 +29,13 @@ function lspmod.setup(projcfg)
   vim.g.ale_lint_on_enter = 0
 end
 
-function lspmod.default_configs()
-  return {
-    gopls = {}
+function lspmod.config_schema()
+  return "lsp", {
+    gopls = {},
+    intelephense = {},
+    pyls = {},
   }
 end
-
 
 function lspmod.maps(mapper)
   mapper.map('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')

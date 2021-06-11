@@ -1,16 +1,13 @@
 local telescopemod = {}
 
 function telescopemod.load(plug)
-  return function()
-    plug {'nvim-lua/popup.nvim'}
-    plug {'nvim-lua/plenary.nvim'}
-    plug {'nvim-telescope/telescope.nvim'}
-    plug {'nvim-telescope/telescope-dap.nvim'}
-  end
+  plug {'nvim-lua/popup.nvim'}
+  plug {'nvim-lua/plenary.nvim'}
+  plug {'nvim-telescope/telescope.nvim'}
+  plug {'nvim-telescope/telescope-dap.nvim'}
 end
 
 function telescopemod.configure(mapper)
-  return function()
     local telescope = require 'telescope'
     telescope.setup()
     -- telescope.load_extension('dap')
@@ -26,7 +23,6 @@ function telescopemod.configure(mapper)
     -- mapper.spacemap('dl', '<cmd>Telescope dap list_breakpoints<CR>')
     -- mapper.spacemap('dv', '<cmd>Telescope dap variables<CR>')
     -- mapper.spacemap('df', '<cmd>Telescope dap frames<CR>')
-  end
 end
 
 return telescopemod
