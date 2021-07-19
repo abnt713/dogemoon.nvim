@@ -1,6 +1,4 @@
-local lspmod = {}
-
-function lspmod.load(plug)
+local function load(plug)
   plug {'neovim/nvim-lspconfig'}
   plug {'nvim-lua/completion-nvim'}
   plug {'nvim-lua/lsp_extensions.nvim'}
@@ -8,45 +6,50 @@ function lspmod.load(plug)
   plug {'onsails/lspkind-nvim'}
 end
 
-function lspmod.configure(mapper, projcfg)
-  lspmod.setup(projcfg)
-  lspmod.kind()
-  lspmod.maps(mapper)
+local function configure_go_project(ctx, lspcfg)
+  tag_list = ctx.project_config.go.concat_tags(",")
+  gopls = {
+    settings = {
+      gopls = {
+        buildFlags = {"-tags=" .. tag_list},
+        env = {
+          GOFLAGS = "-tags=" .. tag_list
+        }
+      }
+    }
+  }
+  lspcfg.gopls.setup(gopls)
 end
 
-function lspmod.kind()
-  require('lspkind').init({
-    with_text = false,
-  })
-end
-
-function lspmod.setup(projcfg)
+local function configure(ctx)
   local lspcfg = require 'lspconfig'
   local lspfuzzy = require 'lspfuzzy'
 
-  lspcfg.gopls.setup(projcfg.gopls)
-  lspcfg.intelephense.setup(projcfg.intelephense)
-  -- lspcfg.pyls.setup(projcfg.pyls)
+  if ctx.project_config.get_type() == "go" then
+    configure_go_project(ctx, lspcfg)
+  end
+
+  if ctx.project_config.get_type() == "php" then
+    lspcfg.intelephense.setup({})
+  end
+
   lspfuzzy.setup({})
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function()
   end
+
+  require('lspkind').init({
+    with_text = false,
+  })
+
+  ctx.map('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+  ctx.map('gh', '<cmd>lua vim.lsp.buf.hover()<CR>')
+  ctx.map('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+  ctx.map('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  ctx.map('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 end
 
-function lspmod.config_schema()
-  return "lsp", {
-    gopls = {},
-    intelephense = {},
-    pyls = {},
-  }
-end
-
-function lspmod.maps(mapper)
-  mapper.map('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  mapper.map('gh', '<cmd>lua vim.lsp.buf.hover()<CR>')
-  mapper.map('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-  mapper.map('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  mapper.map('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-end
-
-return lspmod
+return {
+  load = load,
+  configure = configure,
+}
