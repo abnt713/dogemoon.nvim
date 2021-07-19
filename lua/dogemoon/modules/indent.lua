@@ -10,6 +10,7 @@ function indentmod.configure()
   ]], false)
 
   vim.g.indentLine_first_char = "¦"
+  vim.g.indentLine_setConceal = 0
   vim.g.indentLine_showFirstIndentLevel = 1
 end
 

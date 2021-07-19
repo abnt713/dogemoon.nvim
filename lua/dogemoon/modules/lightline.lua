@@ -7,7 +7,7 @@ end
 
 function lightlinemod.configure()
   vim.g.lightline = {
-    colorscheme = 'wombat',
+    colorscheme = 'everforest',
     active = {
       left = {{'mode', 'paste'}, {'readonly', 'filename', 'modified'}}
     },
@@ -22,6 +22,8 @@ function lightlinemod.configure()
       buffers = 'tabsel'
     }
   }
+
+  vim.o.showmode = false
 end
 
 return lightlinemod

@@ -1,3 +1,5 @@
 /tools/*
+/lua/dogemoon/modules/custom/**/*.lua
+/lua/dogemoon/plugins.lua
 
 !.gitkeep

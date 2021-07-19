@@ -8,7 +8,6 @@ function vimmod.configure(mapper)
   vim.o.completeopt = 'menuone,noselect'
   vim.o.foldlevelstart = 90
   vim.o.hidden = true
-  vim.o.background = 'dark'
   vim.o.shortmess = vim.o.shortmess .. "c"
   vim.o.showtabline = 2
   vim.o.updatetime = 1000
@@ -44,10 +43,10 @@ function vimmod.maps(mapper)
   mapper.map('<leader>y', '"+y', '')
   mapper.map('<leader>p', '"+p', '')
 
-  mapper.spacemap('tt', '<cmd>tabnew<CR>')
-  mapper.spacemap('tl', '<cmd>tabn<CR>')
-  mapper.spacemap('th', '<cmd>tabp<CR>')
-  mapper.spacemap('tw', '<cmd>tabclose<CR>')
+  -- mapper.spacemap('tt', '<cmd>tabnew<CR>')
+  -- mapper.spacemap('tl', '<cmd>tabn<CR>')
+  -- mapper.spacemap('th', '<cmd>tabp<CR>')
+  -- mapper.spacemap('tw', '<cmd>tabclose<CR>')
 
   mapper.map('<C-space>', 'if err != nil {}', 'i')
 end

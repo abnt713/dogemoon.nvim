@@ -5,6 +5,7 @@ function doge.load_plugins(modlist, projfile)
     list = {},
     loaded = {}
   }
+
   local plug = function(plugin_specification)
     if plugin_specification[1] == nil then 
       return
@@ -90,27 +91,5 @@ end
 return function()
   vim.cmd 'packadd paq-nvim'
   local projfile = vim.fn.getcwd() .. '/dogeproject.json'
-
-  plugins = {
-    'vim',
-    'paq-nvim',
-    'treesitter',
-    'polyglot',
-    -- 'dap',
-    'telescope',
-    'ale',
-    'colorizer',
-    'commentary',
-    'compe',
-    'editorconfig',
-    'git',
-    'indent',
-    'lightline',
-    'lsp',
-    'nerdtree',
-    'tmux',
-    'go',
-    'theme.edge'
-  }
-  doge.load_plugins(plugins, projfile)
+  doge.load_plugins(require 'dogemoon.plugins', projfile)
 end

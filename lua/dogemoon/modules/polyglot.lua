@@ -12,6 +12,8 @@ function polyglotmod.load(plug)
     'yaml',
     'yml',
     'sensible',
+    'markdown',
+    'kotlin'
   }
   plug {'sheerun/vim-polyglot'}
 end

@@ -5,11 +5,19 @@ function lspmod.load(plug)
   plug {'nvim-lua/completion-nvim'}
   plug {'nvim-lua/lsp_extensions.nvim'}
   plug {'ojroques/nvim-lspfuzzy'}
+  plug {'onsails/lspkind-nvim'}
 end
 
 function lspmod.configure(mapper, projcfg)
   lspmod.setup(projcfg)
+  lspmod.kind()
   lspmod.maps(mapper)
+end
+
+function lspmod.kind()
+  require('lspkind').init({
+    with_text = false,
+  })
 end
 
 function lspmod.setup(projcfg)
@@ -18,15 +26,11 @@ function lspmod.setup(projcfg)
 
   lspcfg.gopls.setup(projcfg.gopls)
   lspcfg.intelephense.setup(projcfg.intelephense)
-  lspcfg.pyls.setup(projcfg.pyls)
+  -- lspcfg.pyls.setup(projcfg.pyls)
   lspfuzzy.setup({})
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = function()
   end
-
-  vim.g.ale_lint_on_text_changed = 'never'
-  vim.g.ale_lint_on_insert_leave = 0
-  vim.g.ale_lint_on_enter = 0
 end
 
 function lspmod.config_schema()
