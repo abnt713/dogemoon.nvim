@@ -1,5 +1,6 @@
 local function load(plug)
   plug {'vim-test/vim-test'}
+  plug {'voldikss/vim-floaterm'}
 end
 
 local function configure_go_tests(ctx)
@@ -9,7 +10,7 @@ local function configure_go_tests(ctx)
 end
 
 local function configure(ctx)
-  -- vim.g['test#strategy'] = "dispatch"
+  vim.g['test#strategy'] = "floaterm"
 
   if ctx.project_config.get_type() == "go" then
     configure_go_tests(ctx)
