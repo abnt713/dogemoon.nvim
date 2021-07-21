@@ -5,9 +5,10 @@ function lightlinemod.load(plug)
   plug {'mengelbrecht/lightline-bufferline'}
 end
 
-function lightlinemod.configure()
+function lightlinemod.configure(ctx)
+  local theme = ctx.values.get('lightline#theme', 'wombat')
   vim.g.lightline = {
-    colorscheme = 'everforest',
+    colorscheme = theme,
     active = {
       left = {{'mode', 'paste'}, {'readonly', 'filename', 'modified'}}
     },

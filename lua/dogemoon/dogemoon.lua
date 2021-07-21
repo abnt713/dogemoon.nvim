@@ -27,6 +27,22 @@ local function build_context()
     return project_config.content["type"]
   end
 
+  local value_scope = {
+    values = {}
+  }
+  value_scope.get = function(key, default_value)
+    local result = value_scope.values[key]
+    if result == nil then
+      return default_value
+    end
+
+    return result
+  end
+
+  value_scope.set = function(key, value)
+    value_scope.values[key] = value
+  end
+
   local go_scope = {}
 
   go_scope.concat_tags = function(sep)
@@ -43,7 +59,7 @@ local function build_context()
   project_config.go = go_scope
 
   return {
-    values = {},
+    values = value_scope,
     project_config = project_config,
     map = mapper.map,
     spacemap = mapper.spacemap,
