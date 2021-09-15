@@ -9,7 +9,7 @@ function vimmod.configure(mapper)
   vim.o.foldlevelstart = 90
   vim.o.hidden = true
   vim.o.shortmess = vim.o.shortmess .. "c"
-  vim.o.showtabline = 2
+  vim.o.showtabline = 1
   vim.o.updatetime = 1000
   vim.wo.number = true
   vim.wo.relativenumber = true
@@ -30,6 +30,9 @@ function vimmod.configure(mapper)
 end
 
 function vimmod.maps(mapper)
+  -- {
+  --  {'w', 'bd', cmd=true, prefix=true, modes='i'}
+  -- }
   mapper.spacemap('w', '<cmd>bd<CR>')
   mapper.spacemap('h', '<cmd>bp<CR>')
   mapper.spacemap('l', '<cmd>bn<CR>')

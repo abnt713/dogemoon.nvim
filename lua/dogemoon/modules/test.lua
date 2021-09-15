@@ -4,13 +4,22 @@ local function load(plug)
 end
 
 local function configure_go_tests(ctx)
-  vim.g['test#go#gotest#options'] = {
-    all = '-tags "' .. ctx.project_config.go.concat_tags(',') .. '"',
-  }
+  if ctx.project_config.go.has_tags() then
+    vim.g['test#go#gotest#options'] = {
+      all = '-tags "' .. ctx.project_config.go.concat_tags(',') .. '"',
+    }
+  end
+end
+
+local function transform(cmd)
+  print('Will run ' .. cmd)
+  return cmd
 end
 
 local function configure(ctx)
-  vim.g['test#strategy'] = "floaterm"
+  vim.g['test#strategy'] = "neovim"
+  vim.g['test#custom_transformations'] = {custom = transform}
+  vim.g['test#transformation'] = 'custom'
 
   if ctx.project_config.get_type() == "go" then
     configure_go_tests(ctx)

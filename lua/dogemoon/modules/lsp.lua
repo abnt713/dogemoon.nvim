@@ -6,9 +6,11 @@ local function load(plug)
   plug {'onsails/lspkind-nvim'}
 end
 
-local function configure_go_project(ctx, lspcfg)
+local function gopls_config(ctx)
+  if not ctx.project_config.go.has_tags() then return {} end
+
   tag_list = ctx.project_config.go.concat_tags(",")
-  gopls = {
+  return {
     settings = {
       gopls = {
         buildFlags = {"-tags=" .. tag_list},
@@ -18,20 +20,18 @@ local function configure_go_project(ctx, lspcfg)
       }
     }
   }
-  lspcfg.gopls.setup(gopls)
+end
+
+local function intelephense_config(ctx)
+  return {}
 end
 
 local function configure(ctx)
   local lspcfg = require 'lspconfig'
   local lspfuzzy = require 'lspfuzzy'
 
-  if ctx.project_config.get_type() == "go" then
-    configure_go_project(ctx, lspcfg)
-  end
-
-  if ctx.project_config.get_type() == "php" then
-    lspcfg.intelephense.setup({})
-  end
+  lspcfg.gopls.setup(gopls_config(ctx))
+  lspcfg.intelephense.setup(intelephense_config(ctx))
 
   lspfuzzy.setup({})
 

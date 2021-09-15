@@ -16,7 +16,8 @@ end
 
 local function build_context()
   local mapper = require 'dogemoon.utils'
-  local cfg_content = read_project_file(vim.fn.getcwd() .. '/' .. config_file_name)
+  local filepath = vim.fn.getcwd() .. '/' .. config_file_name
+  local cfg_content = read_project_file(filepath)
 
   local project_config = {
     content = cfg_content,
@@ -45,8 +46,19 @@ local function build_context()
 
   local go_scope = {}
 
+  go_scope.has_tags = function()
+    if project_config.content == nil then return nil end
+    if project_config.content.tags == nil then return nil end
+    for _,_ in pairs(project_config.content.tags) do
+        return true
+    end
+    return false
+  end
+
+
   go_scope.concat_tags = function(sep)
     if project_config.content == nil then return nil end
+    if project_config.content.tags == nil then return nil end
 
     local arg_type = type(project_config.content.tags)
     if arg_type == "table" then
