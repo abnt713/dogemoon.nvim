@@ -10,6 +10,8 @@ function gitmod.configure(mapper)
   mapper.spacemap('gc', '<cmd>Git commit<CR>')
   mapper.spacemap('gb', '<cmd>Git blame<CR>')
   mapper.spacemap('gf', '<cmd>GFiles?<CR>')
+  mapper.spacemap('gp', '<cmd>GitGutterPrevHunk<CR>')
+  mapper.spacemap('gn', '<cmd>GitGutterNextHunk<CR>')
 end
 
 return gitmod
