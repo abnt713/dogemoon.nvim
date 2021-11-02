@@ -11,7 +11,12 @@ function treesittermod.load(plug)
   plug {'nvim-treesitter/nvim-treesitter-refactor'}
 end
 
-function treesittermod.configure(mapper)
+function enable_folding()
+  vim.wo.foldmethod = 'expr'
+  vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+end
+
+function treesittermod.configure(ctx)
   require 'nvim-treesitter.configs'.setup({
     highlight = { enable = true },
     indent = {
@@ -40,8 +45,8 @@ function treesittermod.configure(mapper)
     }
   })
 
-  vim.wo.foldmethod = 'expr'
-  vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+  ctx.spacemap('ze', '<cmd>lua enable_folding()<CR>')
 end
+
 
 return treesittermod

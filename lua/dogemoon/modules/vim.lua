@@ -26,6 +26,7 @@ function vimmod.configure(mapper)
   vim.g.netrw_liststyle = 3
 
   vim.cmd('set list lcs=tab:\\¦\\ ')
+  vim.cmd('set mouse+=a')
   vimmod.maps(mapper)
 end
 
@@ -34,8 +35,6 @@ function vimmod.maps(mapper)
   --  {'w', 'bd', cmd=true, prefix=true, modes='i'}
   -- }
   mapper.spacemap('w', '<cmd>bd<CR>')
-  mapper.spacemap('h', '<cmd>bp<CR>')
-  mapper.spacemap('l', '<cmd>bn<CR>')
 
   mapper.spacemap('fe', '<cmd>Explore<CR>')
   mapper.spacemap('fr', '<cmd>lua file_def()<CR>')
@@ -46,10 +45,10 @@ function vimmod.maps(mapper)
   mapper.map('<leader>y', '"+y', '')
   mapper.map('<leader>p', '"+p', '')
 
-  -- mapper.spacemap('tt', '<cmd>tabnew<CR>')
-  -- mapper.spacemap('tl', '<cmd>tabn<CR>')
-  -- mapper.spacemap('th', '<cmd>tabp<CR>')
-  -- mapper.spacemap('tw', '<cmd>tabclose<CR>')
+  mapper.spacemap('tt', '<cmd>tabnew<CR>')
+  mapper.spacemap('tj', '<cmd>tabn<CR>')
+  mapper.spacemap('tk', '<cmd>tabp<CR>')
+  mapper.spacemap('tw', '<cmd>tabclose<CR>')
 
   mapper.map('<C-space>', 'if err != nil {}', 'i')
 end

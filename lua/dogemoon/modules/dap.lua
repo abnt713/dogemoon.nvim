@@ -5,15 +5,14 @@ local function load(plug)
 end
 
 local function maps(ctx)
-  ctx.map('<F5>', [[<cmd>lua require'dap'.continue()<CR>]], 'n', {silent = true})
-  ctx.map('<F6>', [[<cmd>lua require'dap'.step_over()<CR>]], 'n', {silent = true})
-  ctx.map('<F7>', [[<cmd>lua require'dap'.step_into()<CR>]], 'n', {silent = true})
-  ctx.map('<F8>', [[<cmd>lua require'dap'.step_out()<CR>]], 'n', {silent = true})
+  ctx.map('<C-Right>', [[<cmd>lua require'dap'.step_over()<CR>]], 'n', {silent = true})
+  ctx.map('<C-Down>', [[<cmd>lua require'dap'.step_into()<CR>]], 'n', {silent = true})
+  ctx.map('<C-Up>', [[<cmd>lua require'dap'.step_out()<CR>]], 'n', {silent = true})
 
-  ctx.leadermap('b', [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]], 'n', {silent = true})
-  ctx.leadermap('B', [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: '))<CR>]], 'n', {silent = true})
-  ctx.leadermap('l', [[<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>]], 'n', {silent = true})
-  ctx.leadermap('R', [[<cmd>lua require'dap'.repl.open({})<CR>]], 'n', {silent = true})
+  ctx.map('<C-Insert>', [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]], 'n', {silent = true})
+  ctx.map('<C-S-Insert>', [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint Condition: '))<CR>]], 'n', {silent = true})
+  ctx.map('<C-Home>', [[<cmd>lua require'dap'.continue()<CR>]], 'n', {silent = true})
+  ctx.map('<C-PageUp>', [[<cmd>lua require'dap'.repl.open({})<CR>]], 'n', {silent = true})
   ctx.leadermap('dl', [[<cmd>lua require'dap'.run_last()<CR>]], 'n', {silent = true})
 end
 
