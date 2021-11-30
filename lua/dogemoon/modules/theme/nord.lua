@@ -4,6 +4,7 @@ end
 
 local function configure(ctx)
   ctx.values.set('lightline#theme', 'nord')
+  ctx.values.set('lualine#theme', 'nord')
   vim.cmd [[ colorscheme nord ]]
 end
 

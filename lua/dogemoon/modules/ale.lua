@@ -6,7 +6,7 @@ end
 
 function ale.configure(ctx)
   vim.g.ale_linters = {go = {'revive', 'gopls', 'gofmt'}}
-  vim.g.ale_fixers = {json = {'jq', 'prettier'}}
+  vim.g.ale_fixers = {json = {'jq', 'prettier'}, yaml = {'prettier'}}
   vim.g.ale_lint_on_text_changed = 'never'
   vim.g.ale_lint_on_insert_leave = 0
   vim.g.ale_lint_on_enter = 0

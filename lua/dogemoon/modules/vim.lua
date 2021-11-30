@@ -26,7 +26,6 @@ function vimmod.configure(mapper)
   vim.g.netrw_liststyle = 3
 
   vim.cmd('set list lcs=tab:\\¦\\ ')
-  vim.cmd('set mouse+=a')
   vimmod.maps(mapper)
 end
 
