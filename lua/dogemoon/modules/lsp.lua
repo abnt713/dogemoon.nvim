@@ -44,9 +44,13 @@ local function configure(ctx)
 
   ctx.map('ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
   ctx.map('gh', '<cmd>lua vim.lsp.buf.hover()<CR>')
+  ctx.map('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
   ctx.map('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
   ctx.map('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  ctx.map('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+  ctx.map('gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
   ctx.map('<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  ctx.spacemap('ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 end
 
 return {
