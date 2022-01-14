@@ -6,7 +6,6 @@ function vimmod.configure(mapper)
   end
 
   vim.o.completeopt = 'menuone,noselect'
-  vim.o.cursorline = true
   vim.o.foldlevelstart = 90
   vim.o.hidden = true
   vim.o.shortmess = vim.o.shortmess .. "c"
@@ -26,7 +25,6 @@ function vimmod.configure(mapper)
   vim.g.netrw_banner = 0
   vim.g.netrw_liststyle = 3
 
-  vim.cmd('set list lcs=tab:\\¦\\ ')
   vimmod.maps(mapper)
 end
 

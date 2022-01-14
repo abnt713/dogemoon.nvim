@@ -5,6 +5,7 @@ function indentmod.load(plug)
 end
 
 function indentmod.configure()
+  vim.cmd('set list lcs=tab:\\¦\\ ')
   vim.api.nvim_exec([[
   autocmd VimEnter * if bufname('%') == '' | IndentLinesDisable | endif
   ]], false)
